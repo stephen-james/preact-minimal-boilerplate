@@ -65,7 +65,7 @@ gulp.task('serve', ['copy', 'webpack'], () => {
 
 gulp.task('watch', ['serve'], () => {
   const allPaths = [].concat(paths.js, paths.html, paths.css, paths.assets);
-  gulp.watch(allPaths, ['copy-assets', 'reload']);
+  gulp.watch(allPaths, ['reload']);
 });
 
 gulp.task('default', ['watch']);
