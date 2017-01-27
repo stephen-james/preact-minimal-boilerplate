@@ -1,3 +1,4 @@
+var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
@@ -8,12 +9,40 @@ module.exports = {
     sourceMapFilename: 'bundle.js.map'
   },
   module: {
-    loaders: [
-      { test: /\.js$/, exclude: [/node_modules/], loader: 'babel-loader' },
-      { test: /\.html$/, loader: 'raw' },
-      { test: /\.scss$/, loader: 'style!css!sass' },
-      { test: /\.css$/, loader: 'style!css' }
-    ]
+    loaders: [{
+      test: /\.js$/,
+      exclude: [/node_modules/],
+      loader: 'babel-loader'
+    }, {
+      test: /\.html$/,
+      loader: 'raw'
+    }, {
+      test: /\.scss$/,
+      loader: 'style!css!sass'
+    }, {
+      test: /\.css$/,
+      loader: 'style!css'
+    }]
   },
-  devtool: 'source-map'
+  devtool: 'source-map',
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      output: {
+        comments: false
+      },
+      sourceMap: true,
+      compress: {
+        warnings: false,
+        conditionals: true,
+        unused: true,
+        comparisons: true,
+        sequences: true,
+        dead_code: true,
+        evaluate: true,
+        if_return: true,
+        join_vars: true,
+        negate_iife: false
+      }
+    })
+  ]
 }
